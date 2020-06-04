@@ -1,4 +1,3 @@
-module DataManagement
 
 using DataFrames
 using Dates
@@ -22,5 +21,3 @@ export mmconv, findblocks, filtblocks, demean, findnanblocks, detrend, defirst
 export fillnans, replacenans!, na2nan!, missing2nan
 export correctinterval, correctinterval!, prepcorrpar
 export mergetimeseries
-
-end #module
