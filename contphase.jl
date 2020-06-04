@@ -1,5 +1,8 @@
-using CSV, DataFrames, CAPtoolbox, Plots, StatsBase, DSP
+# hilbertphase
 
+using DSP, StatsBase
+
+using CSV, DataFrames, CAPtoolbox, Plots, StatsBase
 df = CSV.read("/Users/tehrandavis/Desktop/jointFittsTask/data/processed_marker_data/Pair_201_trial_5.csv")
 
 ts1 = abs.(Vector(df.p1handZ))
