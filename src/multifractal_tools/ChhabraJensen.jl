@@ -115,12 +115,10 @@ function ChhabraJensen(timeseries, qValues, scales)
                     "Rsqr_falpha" => Rsqr_falpha,
                     "Dq" => Dq,
                     "Rsqr_Dq" => Rsqr_Dq,
-                    "q" => q,
-                    "mfw" => maximum(hq)-minimum(hq)
+                    "q" => qValues,
+                    "mfw" => maximum(alpha)-minimum(alpha)
                     )
 
     return output
-
-    DataFrame(alpha = alpha, Rsqr_alpha = Rsqr_alpha, falpha = falpha, R2_falpha = Rsqr_falpha, Dq = Dq, R2_Dq = Rsqr_Dq)#, qValues = qValues)
 
 end

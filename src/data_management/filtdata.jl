@@ -222,8 +222,8 @@ function detrend(x,y;deg::Int=1)
 		xc = xc[.!isnan.(y)];
 		yc = yc[.!isnan.(y)];
 		# fit
-		fit,err = DataManagement.fitpoly(xc,yc,deg=deg);
-		return y - DataManagement.evalpoly(x,fit);
+		ploy_fit,err = CAPtoolbox.fitpoly(xc,yc,deg=deg);
+		return yc - CAPtoolbox.evalpoly(xc,ploy_fit);
 	end
 end
 

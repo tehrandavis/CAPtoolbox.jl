@@ -1,6 +1,6 @@
-using DSP, Plots, StatsBase
+ using DSP, StatsBase
 
-function ContinuousRP(ts1, ts2, phaseMode)
+function ContinuousRP(ts1, ts2)
 
     # center the data
     ts1 = ts1 .- mean(ts1)
@@ -13,21 +13,22 @@ function ContinuousRP(ts1, ts2, phaseMode)
     denom = ts2.*ts1 + h2.*h1
 
     # time series of CRP in radians
-    radians = atan.(num./denom)
+    radians = atan.(num,denom)
 
     # convert to degrees
     pRP = rad2deg.(radians)
 
-    # plot
-    Plots.plot(pRP)
-
-    # circular stats
+    # circular stats in radians
     wgh = ones(size(radians))
-    wr = wgh'*exp.(im*radians)
-    meanRP = angle(wr)
+    wr = wgh'*exp.(1im*radians)
+    meanRP = angle(wr) |> rad2deg
     rvRP = abs(wr)/sum(wgh)
     sdRP = sqrt(2*(1-rvRP))
 
-    DataFrame(meanRP, rvRP, sdRP)
+    Dict("meanRP" => meanRP,
+        "rvRP" => rvRP,
+        "sdRP" => sdRP,
+        "pRP" => pRP)
+
 
 end

@@ -20,15 +20,15 @@ returns a Dictionary containing
  - resulting effective index of difficulty for the wo targets
 ==#
 
-using CAPsynchrony, Statistics, StatsBase
+using Statistics, StatsBase
 
 
 
 
 function effective_ID_2D(timeseries, peakrange)
 
-    pos_peaks_index = CAPsynchrony.maxima(timeseries, peakrange)
-    neg_peaks_index = CAPsynchrony.minima(timeseries, peakrange)
+    pos_peaks_index = CAPtoolbox.maxima(timeseries, peakrange)
+    neg_peaks_index = CAPtoolbox.minima(timeseries, peakrange)
 
     pos_peaks_values = timeseries[pos_peaks_index]
     neg_peaks_values = timeseries[neg_peaks_index]
@@ -63,5 +63,3 @@ function effective_ID_2D(timeseries, peakrange)
             "eff_ID_neg" => eff_ID_neg_targets,
             )
 end
-
-effective_ID_2D(timeseries, peakrange)
