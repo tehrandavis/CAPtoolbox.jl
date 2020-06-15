@@ -40,7 +40,7 @@ function crossCoherence(ts1, ts2, samplerate, windowSize, windowOverlap)
     FP2 = DSP.welch_pgram(ts2, windowSize, Int(windowOverlap*windowSize))
 
     ## Calculate coherence measures
-    𝘾 = coherence([ts1 ts2], samplerate, windowSize; tapering=tapering, tril=true)
+    𝘾 = coherence([ts1 ts2], samplerate, windowSize; tapering=rectangular, tril=true)
 
 
     x_i = findall(FP1.power[2:end] .== maximum(FP1.power[2:end]))[1]
