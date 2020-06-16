@@ -50,16 +50,26 @@ function effective_ID_2D(timeseries, peakrange)
     #neg_peaks_values_unit_transform = StatsBase.fit(UnitRangeTransform, neg_peaks_values; dims=1, unit=true)
 
     # get effective widths
-    eff_width_pos_targets = 2*1.96*std(pos_peaks_values[1:end_peaks])
-    eff_width_neg_targets = 2*1.96*std(neg_peaks_values[1:end_peaks])
-
+    eff_width_pos_targets = 4.113 * std(pos_peaks_values[1:end_peaks])
+    eff_width_neg_targets = 4.113 * std(neg_peaks_values[1:end_peaks])
+    eff_width_both_CC = begin
+        mean_pos = mean(pos_peaks_values[1:end_peaks])
+        mean_neg = mean(neg_peaks_values[1:end_peaks])
+        diff_mean = mean_pos-mean_neg
+        neg_transformed_values = neg_peaks_values[1:end_peaks] .+ diff_mean
+        4.133 * std([pos_peaks_values[1:end_peaks] neg_transformed_values])
+    end
     eff_ID_pos_targets = log2(2*eff_amplitude/eff_width_pos_targets)
     eff_ID_neg_targets = log2(2*eff_amplitude/eff_width_neg_targets)
+    eff_ID_both_CC = log2(2*eff_amplitude/eff_width_both_CC)
+
 
     Dict("amplitude" => eff_amplitude,
             "eff_width_pos" => eff_width_pos_targets,
             "eff_width_neg" => eff_width_neg_targets,
+            "eff_width_both" => eff_width_both_CC,
             "eff_ID_pos" => eff_ID_pos_targets,
             "eff_ID_neg" => eff_ID_neg_targets,
+            "eff_ID_both" => eff_ID_both_CC
             )
 end

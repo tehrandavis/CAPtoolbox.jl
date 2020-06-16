@@ -19,9 +19,13 @@ Tehran J. Davis, 2020
 
 ==#
 
-using DSP, StatsBase
+
+using DSP, StatsBase, FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots
+
 
 function crossCoherence(ts1, ts2, samplerate, windowSize, windowOverlap)
+
+    tapering=rectangular
 
     ## Z-score normalization
     ts1 = StatsBase.zscore(ts1)
@@ -40,7 +44,7 @@ function crossCoherence(ts1, ts2, samplerate, windowSize, windowOverlap)
     FP2 = DSP.welch_pgram(ts2, windowSize, Int(windowOverlap*windowSize))
 
     ## Calculate coherence measures
-    𝘾 = coherence([ts1 ts2], samplerate, windowSize; tapering=rectangular, tril=true)
+    𝘾 = coherence([ts1 ts2], samplerate, windowSize; tapering=tapering, smoothing=hannSmoother, tril=true)
 
 
     x_i = findall(FP1.power[2:end] .== maximum(FP1.power[2:end]))[1]
